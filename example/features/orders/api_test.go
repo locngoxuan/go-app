@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"go-app/example/entity/message"
-	"go-app/example/entity/model"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -14,9 +13,9 @@ import (
 type orderServiceMock struct {
 }
 
-func (*orderServiceMock) CreateOrder(request message.CreateOrder) (*model.Order, error) {
+func (*orderServiceMock) CreateOrder(request message.CreateOrder) (*message.Order, error) {
 	if request.OrderNumber == "1" {
-		return &model.Order{
+		return &message.Order{
 			ID:          1,
 			Customer:    request.Customer,
 			OrderNumber: request.OrderNumber,

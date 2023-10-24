@@ -9,7 +9,7 @@ import (
 )
 
 type OrderService interface {
-	CreateOrder(request message.CreateOrder) (*model.Order, error)
+	CreateOrder(request message.CreateOrder) (*message.Order, error)
 	CancelOrder(orderId int64) error
 	ViewOrder() ([]message.Order, error)
 }
@@ -36,7 +36,7 @@ func (service *orderService) CancelOrder(orderId int64) error {
 }
 
 // CreateOrder implements OrderService.
-func (service *orderService) CreateOrder(request message.CreateOrder) (*model.Order, error) {
+func (service *orderService) CreateOrder(request message.CreateOrder) (*message.Order, error) {
 	order := model.Order{
 		Customer:    request.Customer,
 		OrderNumber: request.OrderNumber,
@@ -47,7 +47,9 @@ func (service *orderService) CreateOrder(request message.CreateOrder) (*model.Or
 	if err != nil {
 		return nil, err
 	}
-	return &order, nil
+	return &message.Order{
+		ID: order.ID,
+	}, nil
 }
 
 // ViewOrder implements OrderService.
