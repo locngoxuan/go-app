@@ -53,10 +53,7 @@ func (o *orderApi) CreateOrder(w http.ResponseWriter, r *http.Request, _ httprou
 		w.Write([]byte(http.StatusText(http.StatusBadRequest)))
 		return
 	}
-	response := message.Order{
-		ID: order.ID,
-	}
-	bytes, _ := json.Marshal(response)
+	bytes, _ := json.Marshal(order)
 	w.WriteHeader(200)
 	w.Write(bytes)
 }
